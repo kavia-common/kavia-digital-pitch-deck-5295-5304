@@ -3,6 +3,6 @@
   "private": true,
   "workspaces": [],
   "scripts": {
-    "lint": "npx eslint --ext .js,.ts,.vue --ignore-path .gitignore kavia-digital-pitch-deck-5295-5304/pitch_deck_frontend"
+    "lint": "npx eslint --ext .js,.ts,.vue --max-warnings=0 ."
   }
 }
