@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+import { existsSync } from "node:fs";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const localEslint = resolve(__dirname, "node_modules", ".bin", "eslint");
+const useLocal = existsSync(localEslint);
+const cmd = useLocal ? localEslint : "npx";
+const args = useLocal
+  ? ["--ext", ".js,.ts,.vue", "--ignore-path", ".gitignore", "."]
+  : ["eslint", "--ext", ".js,.ts,.vue", "--ignore-path", ".gitignore", "."];
+
+const child = spawn(cmd, args, { stdio: "inherit", shell: false });
+child.on("exit", (code) => process.exit(code));
